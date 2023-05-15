@@ -21,7 +21,7 @@ Dev - To start the development environmentwith [nodeman](https://www.npmjs.com/p
 Debug - To start the debugging environment run the following:
 
 ```js
-  npm dun debug
+  npm run debug
 ```
 
 ## Good to know
@@ -29,3 +29,4 @@ Debug - To start the debugging environment run the following:
 - "cross-env" allows overriding of the defaults environment variable "LOG_LEVEL" to debug
 - Instead of using "curl.exe" command is a direct replacement of "curl" command
 - To hit the server with curl use this "curl.exe -i localhost:8080"
+- Auto Attach Debugger: onlyWithFlag - Only processes launched with the --inspect or --inspect-brk flag will be debugged.
