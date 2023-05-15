@@ -1,6 +1,7 @@
 // src/logger.js
 
 // Use `info` as our standard log level if not specified
+// eslint-disable-next-line no-undef
 const options = { level: process.env.LOG_LEVEL || 'info' };
 
 // If we're doing `debug` logging, make the logs easier to read
