@@ -5,7 +5,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const compression = require('compression');
 const passport = require('passport');
-const authenticate = require('./authentication');
+const authenticate = require('./authorization');
 
 const logger = require('./logger');
 const pino = require('pino-http')({

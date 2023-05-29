@@ -1,4 +1,4 @@
-const { authenticate } = require('../authentication');
+const { authenticate } = require('../authorization');
 // src/routes/index.js
 
 const express = require('express');
