@@ -1,5 +1,6 @@
-const { authenticate } = require('../authorization');
 // src/routes/index.js
+const { createSuccessResponse } = require('../response');
+const { authenticate } = require('../authorization');
 
 const express = require('express');
 
@@ -23,13 +24,13 @@ router.get('/', (req, res) => {
   // Client's shouldn't cache this response (always request it fresh)
   res.setHeader('Cache-Control', 'no-cache');
   // Send a 200 'OK' response
-  res.status(200).json({
-    status: 'ok',
+  const successResponse = createSuccessResponse({
     author,
     // Use your own GitHub URL for this...
     githubUrl: 'https://github.com/pbelokon/fragments',
     version,
   });
+  res.status(200).json(successResponse);
 });
 
 module.exports = router;
