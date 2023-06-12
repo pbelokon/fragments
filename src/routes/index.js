@@ -4,7 +4,6 @@ const { authenticate } = require('../authorization');
 
 const express = require('express');
 
-// version and author from package.json
 const { version, author } = require('../../package.json');
 
 // Create a router that we can use to mount our API

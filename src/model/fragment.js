@@ -28,7 +28,6 @@ class Fragment {
     this.type = type;
     this.size = size;
   }
-
   /**
    * Get all fragments (id or full) for the given user
    * @param {string} ownerId user's hashed email
@@ -86,13 +85,12 @@ class Fragment {
    * @returns Promise<void>
    */
   async setData(data) {
-    if (data) {
-      this.size = data.length;
-      await this.save();
-      return await writeFragmentData(this.ownerId, this.id, data);
-    } else {
-      throw new Error(`no buffer provided`);
+    if (!Buffer.isBuffer(data)) {
+      throw new Error('no buffer provided');
     }
+    this.size = Buffer.byteLength(data);
+    await this.save();
+    return await writeFragmentData(this.ownerId, this.id, data);
   }
 
   /**
