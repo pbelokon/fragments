@@ -35,6 +35,7 @@ module.exports = async (req, res) => {
       res
         .status(415)
         .json(createErrorResponse(415, fragment.type + ' cannot be returned as a ' + ext));
+      return;
     }
 
     if (fragment.formats.includes(typeCheck.contentType)) {

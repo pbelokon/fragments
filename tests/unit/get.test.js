@@ -1,5 +1,4 @@
 const request = require('supertest');
-
 const app = require('../../src/app');
 
 describe('GET /v1/fragments', () => {
@@ -12,11 +11,20 @@ describe('GET /v1/fragments', () => {
 
   // Using a valid username/password pair should give a success result with a .fragments array
   test('authenticated users get a fragments array', async () => {
-    const res = await request(app).get('/v1/fragments').auth('user1@email.com', 'password1');
+    const user = { email: 'user1@email.com', password: 'password1' };
+
+    const res = await request(app).get('/v1/fragments').auth(user.email, user.password);
     expect(res.statusCode).toBe(200);
     expect(res.body.status).toBe('ok');
     expect(Array.isArray(res.body.fragments)).toBe(true);
   });
 
-  // TODO: we'll need to add tests to check the contents of the fragments array later
+  test('when expand = 1 should returns all fragments including representations', async () => {
+    const user = { email: 'user1@email.com', password: 'password1' };
+
+    const res = await request(app).get('/v1/fragments?expand=1').auth(user.email, user.password);
+    expect(res.statusCode).toBe(200);
+    expect(res.body.status).toBe('ok');
+    expect(Array.isArray(res.body.fragments)).toBe(true);
+  });
 });

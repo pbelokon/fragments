@@ -1,10 +1,11 @@
 const { Fragment } = require('../../model/fragment');
 const { createSuccessResponse, createErrorResponse } = require('../../response');
-
+const logger = require('../../logger');
 const API_URL = process.env.API_URL;
 
 module.exports = async (req, res) => {
   const contentTypeHeader = req.get('Content-Type');
+  logger.debug({ contentTypeHeader });
 
   if (!contentTypeHeader || !Fragment.isSupportedType(contentTypeHeader)) {
     res.status(415).json(createErrorResponse(415, 'Unsupported Type'));
