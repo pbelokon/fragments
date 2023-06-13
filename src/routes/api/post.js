@@ -4,7 +4,7 @@ const logger = require('../../logger');
 const API_URL = process.env.API_URL;
 
 module.exports = async (req, res) => {
-  const contentTypeHeader = req.get('Content-Type');
+  const contentTypeHeader = req.get('Content-Type').toLowerCase();
   logger.debug({ contentTypeHeader });
 
   if (!contentTypeHeader || !Fragment.isSupportedType(contentTypeHeader)) {

@@ -135,6 +135,7 @@ class Fragment {
     const supportedType = [
       'text/plain',
       'text/plain; charset=utf-8',
+      'text/plain;charset=utf-8',
       'text/markdown',
       'text/html',
       'application/json',
