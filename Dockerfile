@@ -1,10 +1,31 @@
 #In order to build doker images first run Docker desctop then execute docker build -t fragments:latest .
 
-# Use node version v18.16.0
-FROM node:18.13.0
-
+FROM node:18.16.0 AS builder
+# for above add digest for sha docker image
 LABEL maintainer="Pavel Belokon <pbelokon@example.com>"
 LABEL description="Fragments node.js microservice"
+
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+
+# only install production dependancies 
+RUN npm ci --only=production
+
+##################################################
+
+FROM node:18.16.0-alpine
+
+# Use /app as our working directory
+WORKDIR /app
+
+COPY --from=builder /app/node_modules ./node_modules
+
+COPY ./src ./src
+COPY ./tests/.htpasswd ./tests/.htpasswd
+
+# Set NODE_ENV to production 
+ENV NODE_ENV=production
 
 # We default to use port 8080 in our service
 ENV PORT=8080
@@ -17,18 +38,6 @@ ENV NPM_CONFIG_LOGLEVEL=warn
 # https://docs.npmjs.com/cli/v8/using-npm/config#color
 ENV NPM_CONFIG_COLOR=false
 
-# Use /app as our working directory
-WORKDIR /app
-
-
-COPY package.json package-lock.json ./
-
-RUN npm install
-
-COPY ./src ./src
-
 EXPOSE 8080
-
-COPY ./tests/.htpasswd ./tests/.htpasswd
 
 CMD npm start
