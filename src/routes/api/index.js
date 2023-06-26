@@ -13,6 +13,7 @@ const router = express.Router();
 
 router.get('/fragments', require('./get'));
 router.get('/fragments/:id', require('./getById'));
+router.get('/fragments/:id/info', require('./getInfo'));
 
 // Post
 const contentType = require('content-type');
