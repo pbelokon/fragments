@@ -1,5 +1,5 @@
 #In order to build doker images first run Docker desctop then execute docker build -t fragments:latest .
-
+# TODO implement all 9 optimizations
 FROM node:18.16.0 AS builder
 # for above add digest for sha docker image
 LABEL maintainer="Pavel Belokon <pbelokon@example.com>"
