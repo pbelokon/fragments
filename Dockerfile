@@ -1,5 +1,5 @@
 #In order to build doker images first run Docker desctop then execute docker build -t fragments:latest .
-# TODO implement all 9 optimizations
+
 FROM node:18.16.0 AS builder
 # for above add digest for sha docker image
 LABEL maintainer="Pavel Belokon <pbelokon@example.com>"
@@ -9,7 +9,7 @@ WORKDIR /app
 
 COPY package.json package-lock.json ./
 
-# only install production dependancies 
+# only install production dependencies
 RUN npm ci --only=production
 
 ##################################################
@@ -21,10 +21,12 @@ WORKDIR /app
 
 COPY --from=builder /app/node_modules ./node_modules
 
+COPY ./package.json ./package-lock.json ./
+
 COPY ./src ./src
 COPY ./tests/.htpasswd ./tests/.htpasswd
 
-# Set NODE_ENV to production 
+# Set NODE_ENV to production
 ENV NODE_ENV=production
 
 # We default to use port 8080 in our service
@@ -40,4 +42,4 @@ ENV NPM_CONFIG_COLOR=false
 
 EXPOSE 8080
 
-CMD npm start
+CMD ["npm", "start"]
