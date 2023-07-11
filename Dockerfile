@@ -43,4 +43,3 @@ ENV NPM_CONFIG_COLOR=false
 EXPOSE 8080
 
 CMD ["npm", "start"]
-# TODO fix local
