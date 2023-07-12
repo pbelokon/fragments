@@ -116,14 +116,24 @@ class Fragment {
    * @returns {Array<string>} list of supported mime types
    */
   get formats() {
-    // TODO - add support for other types if we can convert them
-    let conversionFormats = [];
+    // TODO - add support for images
+    const plain = ['text/plain'];
+    const markdown = ['text/plain', 'text/markdown', 'text/html'];
+    const html = ['text/html', 'text/plain'];
+    const json = ['application/json', 'text/plain'];
 
-    if (this.type.startsWith('text/plain')) {
-      conversionFormats.push('text/plain');
+    switch (this.mimeType) {
+      case 'text/plain':
+        return plain;
+      case 'text/markdown':
+        return markdown;
+      case 'text/html':
+        return html;
+      case 'application/json':
+        return json;
+      default:
+        return [this.mimeType];
     }
-
-    return conversionFormats;
   }
 
   /**

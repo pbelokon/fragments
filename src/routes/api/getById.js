@@ -2,11 +2,23 @@ const { createErrorResponse } = require('../../response');
 const { Fragment } = require('../../model/fragment');
 const logger = require('../../logger');
 const path = require('path');
-// TODO: Add support for more content types
+// TODO: Add support for images
 const contentTypeHeader = [
   {
     id: '.txt',
     contentType: 'text/plain',
+  },
+  {
+    id: '.md',
+    contentType: 'text/markdown',
+  },
+  {
+    id: '.html',
+    contentType: 'text/html',
+  },
+  {
+    id: '.json',
+    contentType: 'application/json',
   },
 ];
 
