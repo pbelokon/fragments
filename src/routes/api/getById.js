@@ -2,6 +2,7 @@ const { createErrorResponse } = require('../../response');
 const { Fragment } = require('../../model/fragment');
 const logger = require('../../logger');
 const path = require('path');
+const markdownIt = require('markdown-it')();
 // TODO: Add support for images
 const contentTypeHeader = [
   {
@@ -52,8 +53,15 @@ module.exports = async (req, res) => {
 
     if (fragment.formats.includes(typeCheck.contentType)) {
       res.setHeader('content-type', typeCheck.contentType);
-      // Here we are just return the data because we are dealing with plain text
-      // TODO do a proper conversion
+      // TODO do a proper conversion for all types
+      if (ext.toLowerCase() === '.html' && fragment.type === 'text/markdown') {
+        const data = await fragment.getData();
+
+        const toHtml = markdownIt.render(data.toString());
+        res.status(200).send(toHtml);
+        return;
+      }
+
       res.status(200).send(await fragment.getData());
     }
   } catch (err) {

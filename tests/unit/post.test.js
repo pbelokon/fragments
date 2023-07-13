@@ -13,7 +13,7 @@ describe('POST /v1/fragments', () => {
       .auth('user1@email.com', 'password1')
       .send('fragment')
       .set('content-type', 'text/plain');
-    console.log(res.body);
+
     expect(res.statusCode).toBe(201);
     expect(res.body.status).toBe('ok');
     expect(res.body.fragment != null).toBe(true);
@@ -30,5 +30,41 @@ describe('POST /v1/fragments', () => {
     expect(res.statusCode).toBe(415);
     expect(res.body.status).toBe('error');
     expect(res.body.error.code).toBe(415);
+  });
+
+  test('authenticated users get a fragments array', async () => {
+    const res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .send('fragment')
+      .set('content-type', 'application/json');
+
+    expect(res.statusCode).toBe(201);
+    expect(res.body.status).toBe('ok');
+    expect(res.body.fragment != null).toBe(true);
+  });
+
+  test('authenticated users get a fragments array', async () => {
+    const res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .send('fragment')
+      .set('content-type', 'text/markdown');
+
+    expect(res.statusCode).toBe(201);
+    expect(res.body.status).toBe('ok');
+    expect(res.body.fragment != null).toBe(true);
+  });
+
+  test('authenticated users get a fragments array', async () => {
+    const res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .send('fragment')
+      .set('content-type', 'text/html');
+
+    expect(res.statusCode).toBe(201);
+    expect(res.body.status).toBe('ok');
+    expect(res.body.fragment != null).toBe(true);
   });
 });
