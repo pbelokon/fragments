@@ -89,6 +89,31 @@ describe('GET /v1/fragments/:id', () => {
     expect(Buffer.from(res.text)).toEqual(Buffer.from(data));
   });
 
+  test('request markdown fragment with not .ext return fragment with data', async () => {
+    const user = { email: 'user1@email.com', password: 'password1' };
+    const data = 'this is some fragment data.';
+    const contentType = 'text/markdown';
+    const contentLength = data.length;
+
+    const { fragment } = (
+      await request(app)
+        .post('/v1/fragments')
+        .send(data)
+        .set('Content-Type', contentType)
+        .auth(user.email, user.password)
+    ).body;
+
+    const res = await request(app)
+      .get(`/v1/fragments/${fragment.id}`)
+      .buffer()
+      .auth(user.email, user.password);
+
+    expect(res.statusCode).toBe(200);
+    expect(res.header['content-type']).toBe(contentType);
+    expect(Number.parseInt(res.header['content-length'])).toBe(contentLength);
+    expect(Buffer.from(res.text)).toEqual(Buffer.from(data));
+  });
+
   test('request with existent fragment ID and extension should return fragment with data', async () => {
     const user = {
       email: 'user1@email.com',

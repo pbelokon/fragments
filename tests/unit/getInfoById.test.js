@@ -23,4 +23,17 @@ describe('GET /v1/fragments/:id/info', () => {
 
     expect(res.statusCode).toBe(200);
   });
+
+  test('request with non-existent ID should return 404 error', async () => {
+    const nonExistentId = 'non-existent-id';
+    const user = { email: 'user1@email.com', password: 'password1' };
+
+    const res = await request(app)
+      .get(`/v1/fragments/${nonExistentId}/info`)
+      .buffer()
+      .auth(user.email, user.password);
+
+    expect(res.statusCode).toBe(404);
+    expect(res.body.error.message).toBe('Could not find Fragment');
+  });
 });
