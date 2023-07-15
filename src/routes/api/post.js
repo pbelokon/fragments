@@ -15,6 +15,7 @@ module.exports = async (req, res) => {
   try {
     const fragment = new Fragment({ ownerId: req.user, type: contentTypeHeader });
     await fragment.setData(req.body);
+    await fragment.save();
 
     const fragmentURL = new URL(`/v1/fragments/${fragment.id}`, API_URL);
     res.setHeader('Location', fragmentURL.href);
