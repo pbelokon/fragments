@@ -8,7 +8,7 @@ const { version, author } = require('../../package.json');
 
 // Create a router that we can use to mount our API
 const router = express.Router();
-
+const { hostname } = require('os');
 /**
  * Expose all of our API routes on /v1/* to include an API version.
  * Protect them all so you have to be authenticated in order to access.
@@ -28,6 +28,7 @@ router.get('/', (req, res) => {
     // Use your own GitHub URL for this...
     githubUrl: 'https://github.com/pbelokon/fragments',
     version,
+    hostname: hostname(),
   });
   res.status(200).json(successResponse);
 });
