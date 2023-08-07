@@ -25,6 +25,7 @@ module.exports = async (req, res) => {
       })
     );
   } catch (error) {
+    logger.debug(error);
     res.status(400).json(createErrorResponse(400, error));
   }
 };

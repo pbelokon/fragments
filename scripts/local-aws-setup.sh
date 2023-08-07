@@ -18,6 +18,7 @@ export AWS_SESSION_TOKEN=test
 export AWS_DEFAULT_REGION=us-east-1
 echo "AWS_DEFAULT_REGION=us-east-1"
 
+export 
 # Wait for LocalStack to be ready, by inspecting the response from healthcheck
 echo 'Waiting for LocalStack S3...'
 until (curl --silent http://localhost:4566/_localstack/health | grep "\"s3\": \"\(running\|available\)\"" > /dev/null); do

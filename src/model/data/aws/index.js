@@ -1,3 +1,5 @@
+const logger = require('../../../logger');
+
 // XXX: temporary use of memory-db until we add DynamoDB
 const MemoryDB = require('../memory/memory-db');
 
@@ -14,7 +16,6 @@ function writeFragment(fragment) {
 function readFragment(ownerId, id) {
   return metadata.get(ownerId, id);
 }
-
 // Writes a fragment's data to an S3 Object in a Bucket
 // https://github.com/awsdocs/aws-sdk-for-javascript-v3/blob/main/doc_source/s3-example-creating-buckets.md#upload-an-existing-object-to-an-amazon-s3-bucket
 async function writeFragmentData(ownerId, id, data) {
@@ -34,6 +35,7 @@ async function writeFragmentData(ownerId, id, data) {
     await s3Client.send(command);
   } catch (err) {
     // If anything goes wrong, log enough info that we can debug
+    logger.debug(err);
     throw new Error('unable to upload fragment data');
   }
 }
