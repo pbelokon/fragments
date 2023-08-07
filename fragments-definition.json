@@ -1,6 +1,7 @@
 {
   "ipcMode": null,
   "executionRoleArn": "arn:aws:iam::742187969130:role/LabRole",
+  "taskRoleArn": "arn:aws:iam::742187969130:role/LabRole",
   "containerDefinitions": [
     {
       "dnsSearchDomains": null,
@@ -92,7 +93,6 @@
   ],
   "placementConstraints": [],
   "memory": "512",
-  "taskRoleArn": null,
   "compatibilities": ["EC2", "FARGATE"],
   "taskDefinitionArn": "arn:aws:ecs:us-east-1:742187969130:task-definition/fragments-task:1",
   "family": "fragments-task",

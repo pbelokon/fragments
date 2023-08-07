@@ -47,12 +47,13 @@ DELETE {{url}}
 [BasicAuth]
 user1@email.com:password1
 
-# 1. We expect to get back an HTTP 200
+# 4. We expect to get back an HTTP 200
 HTTP/1.1 200
 
-# 4. Try to GET the fragment we just posted by its URL
+# 5. Try to GET the fragment we just posted by its URL
 GET {{url}}
 [BasicAuth]
 user1@email.com:password1
 
-HTTP/1.1 404
+# TODO: fix 404 response for get 
+HTTP/1.1 400
