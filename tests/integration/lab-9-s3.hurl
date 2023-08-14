@@ -55,5 +55,4 @@ GET {{url}}
 [BasicAuth]
 user1@email.com:password1
 
-# TODO: fix 404 response for get 
-HTTP/1.1 400
+HTTP/1.1 404

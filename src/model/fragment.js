@@ -49,7 +49,7 @@ class Fragment {
     if (!fragment) {
       throw new Error(`Fragment with ${id} not found!`);
     }
-    return await readFragment(ownerId, id);
+    return new Fragment(fragment);
   }
 
   /**
