@@ -7,9 +7,9 @@ module.exports = async (req, res) => {
 
   try {
     fragment = await Fragment.byId(req.user, id);
-    createSuccessResponse(
-      res.status(200).json({
-        fragment: fragment,
+    res.status(200).json(
+      createSuccessResponse({
+        fragment,
       })
     );
   } catch (err) {
