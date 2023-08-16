@@ -3,7 +3,7 @@ const { Fragment } = require('../../model/fragment');
 const logger = require('../../logger');
 const path = require('path');
 const markdownIt = require('markdown-it')();
-// TODO: Add support for images
+const sharp = require('sharp');
 const contentTypeHeader = [
   {
     id: '.txt',
@@ -21,7 +21,25 @@ const contentTypeHeader = [
     id: '.json',
     contentType: 'application/json',
   },
+  {
+    id: '.png',
+    contentType: 'image/png',
+  },
+  {
+    id: '.jpg',
+    contentType: 'image/jpeg',
+  },
+  {
+    id: '.webp',
+    contentType: 'image/webp',
+  },
+  {
+    id: '.gif',
+    contentType: 'image/gif',
+  },
 ];
+
+const images = ['.jpg', '.png', '.webp', '.gif'];
 
 module.exports = async (req, res) => {
   const ext = path.extname(req.params.id);
@@ -53,12 +71,19 @@ module.exports = async (req, res) => {
 
     if (fragment.formats.includes(typeCheck.contentType)) {
       res.setHeader('content-type', typeCheck.contentType);
-      // TODO do a proper conversion for all types
+
       if (ext.toLowerCase() === '.html' && fragment.type === 'text/markdown') {
         const data = await fragment.getData();
 
         const toHtml = markdownIt.render(data.toString());
         res.status(200).send(toHtml);
+        return;
+      }
+
+      if (images.includes(ext.toLowerCase)) {
+        const data = await fragment.getData;
+        const converted = sharp(data).toFormat(ext.toLowerCase);
+        res.status(200).send(converted);
         return;
       }
 

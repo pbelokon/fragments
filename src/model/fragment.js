@@ -116,11 +116,11 @@ class Fragment {
    * @returns {Array<string>} list of supported mime types
    */
   get formats() {
-    // TODO - add support for images
     const plain = ['text/plain'];
     const markdown = ['text/plain', 'text/markdown', 'text/html'];
     const html = ['text/html', 'text/plain'];
     const json = ['application/json', 'text/plain'];
+    const img = ['image/png', 'image/jpeg', 'image/gif', 'image/webp'];
 
     switch (this.mimeType) {
       case 'text/plain':
@@ -131,6 +131,14 @@ class Fragment {
         return html;
       case 'application/json':
         return json;
+      case 'image/png':
+        return img;
+      case 'image/jpeg':
+        return img;
+      case 'image/gif':
+        return img;
+      case 'image/webp':
+        return img;
       default:
         return [this.mimeType];
     }
