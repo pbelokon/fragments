@@ -116,7 +116,6 @@ class Fragment {
    * @returns {Array<string>} list of supported mime types
    */
   get formats() {
-    // TODO - add support for images
     const plain = ['text/plain'];
     const markdown = ['text/plain', 'text/markdown', 'text/html'];
     const html = ['text/html', 'text/plain'];
